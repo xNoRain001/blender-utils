@@ -2,6 +2,18 @@ import inspect
 
 from .get_b_vars import get_scene, get_props
 
+def report_info (self, text):
+  self.report({'INFO'}, text)
+
+def report_warning (self, text):
+  self.report({'WARNING'}, text)
+
+def report_error (self, text):
+  self.report({'ERROR'}, text)
+
+def remove_scene_custom_prop (prop):
+  del get_scene()[prop]
+
 def add_row_with_label_and_operator (
   layout, 
   data, 
@@ -43,7 +55,8 @@ def add_scene_custom_prop (
   desc = None,
   min = None,
   max = None,
-  type = None
+  type = None,
+  items = None
 ):
   kwargs = {}
   
@@ -59,18 +72,10 @@ def add_scene_custom_prop (
     kwargs['min'] = min
   if max is not None:
     kwargs['max'] = max
+  if items is not None:
+    kwargs['items'] = items
 
   print(kwargs)
   fn = getattr(get_props(), f'{ prop_type }Property')
   scene = get_scene()
   setattr(scene, name, fn(**kwargs))
-  # setattr(scene, name, fn(name = name, description = desc, default = default))
-
-  # bpy.types.Scene.body_type = bpy.props.IntProperty(
-  #   name = 'body_type',
-  #   description = 'Loli / Boy / Girl / Male / Lady => [1, 5]',
-  #   default = 3,
-  #   min = 1,
-  #   max = 5
-  # )
-  

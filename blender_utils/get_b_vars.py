@@ -1,5 +1,11 @@
 import bpy
 
+def get_ui_list ():
+  return bpy.types.UIList
+
+def get_utils ():
+  return bpy.utils
+
 def get_operator_file_list_element ():
   return bpy.types.OperatorFileListElement
 
