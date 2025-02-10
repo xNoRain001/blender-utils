@@ -12,7 +12,7 @@ def report_error (self, text):
   self.report({'ERROR'}, text)
 
 def remove_scene_custom_prop (prop):
-  del get_scene()[prop]
+  delattr(get_scene(), prop)
 
 def add_row_with_label_and_operator (
   layout, 
