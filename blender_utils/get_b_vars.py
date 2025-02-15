@@ -1,5 +1,11 @@
 import bpy
 
+def get_types_object ():
+  return bpy.types.Object
+
+def get_app ():
+  return bpy.app
+
 def get_ui_list ():
   return bpy.types.UIList
 

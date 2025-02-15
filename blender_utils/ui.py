@@ -56,7 +56,9 @@ def add_scene_custom_prop (
   min = None,
   max = None,
   type = None,
-  items = None
+  items = None,
+  update = None,
+  step = None
 ):
   kwargs = {}
   
@@ -74,6 +76,10 @@ def add_scene_custom_prop (
     kwargs['max'] = max
   if items is not None:
     kwargs['items'] = items
+  if update is not None:
+    kwargs['update'] = update
+  if step is not None:
+    kwargs['step'] = step
 
   print(kwargs)
   fn = getattr(get_props(), f'{ prop_type }Property')

@@ -2,6 +2,12 @@ import bpy
 
 from .get_b_vars import get_context, get_active_object, get_object
 
+def set_current_frame (frame):
+  return bpy.context.scene.frame_set(frame)
+
+def get_current_frame ():
+  return bpy.context.scene.frame_current
+
 def get_materials ():
   return get_context().object.data.materials
 
@@ -21,6 +27,9 @@ def create_material (material_name):
 
 def set_mode (mode):
   bpy.ops.object.mode_set(mode = mode)
+
+def get_selected_objects ():
+  return get_context().selected_objects
 
 def get_selected_object ():
   return get_context().selected_objects[0]
