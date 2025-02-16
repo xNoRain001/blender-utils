@@ -52,6 +52,23 @@ def snap_cursor (location = (0, 0, 0)):
   # bpy.ops.view3d.snap_cursor_to_center()
   context.scene.cursor.location = location
   context.area.type = prev_context
+  
+def snap_cursor_to_selected ():
+  context = get_context()
+  prev_context = context.area.type
+  context.area.type = 'VIEW_3D'
+  bpy.ops.view3d.snap_cursor_to_selected()
+  location = context.scene.cursor.location
+  context.area.type = prev_context
+
+  return location
+
+def snap_selected_to_cursor ():
+  context = get_context()
+  prev_context = context.area.type
+  context.area.type = 'VIEW_3D'
+  bpy.ops.view3d.snap_selected_to_cursor()
+  context.area.type = prev_context
 
 def active_object_ (object):
   get_context().view_layer.objects.active = object

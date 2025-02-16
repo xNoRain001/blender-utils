@@ -58,7 +58,10 @@ def add_scene_custom_prop (
   type = None,
   items = None,
   update = None,
-  step = None
+  step = None,
+  size = None,
+  subtype = None,
+  set = None
 ):
   kwargs = {}
   
@@ -80,6 +83,12 @@ def add_scene_custom_prop (
     kwargs['update'] = update
   if step is not None:
     kwargs['step'] = step
+  if size is not None:
+    kwargs['size'] = size
+  if subtype is not None:
+    kwargs['subtype'] = subtype
+  if set is not None:
+    kwargs['set'] = set
 
   print(kwargs)
   fn = getattr(get_props(), f'{ prop_type }Property')

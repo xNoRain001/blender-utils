@@ -161,11 +161,10 @@ def add_armature_constraints (bone, targets):
 
   if pose_bone:
     constraint = pose_bone.constraints.new('ARMATURE')
-
-  for value in targets:
-    target = constraint.targets.new()
-    target.target = get_active_object()
-    target.subtarget = value
+    for value in targets:
+      target = constraint.targets.new()
+      target.target = get_active_object()
+      target.subtarget = value
 
 def add_limit_location_constraint (
   bone, 
