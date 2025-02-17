@@ -61,7 +61,8 @@ def add_scene_custom_prop (
   step = None,
   size = None,
   subtype = None,
-  set = None
+  set = None,
+  precision = None
 ):
   kwargs = {}
   
@@ -89,6 +90,8 @@ def add_scene_custom_prop (
     kwargs['subtype'] = subtype
   if set is not None:
     kwargs['set'] = set
+  if precision is not None:
+    kwargs['precision'] = precision
 
   print(kwargs)
   fn = getattr(get_props(), f'{ prop_type }Property')

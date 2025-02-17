@@ -169,6 +169,9 @@ def get_selected_bone ():
 def get_selected_bones ():
   return get_context().selected_bones
 
+def get_selected_pose_bones ():
+  return get_context().selected_pose_bones
+
 def get_bone_chain (bone):
   last_bone = bone
   list = []
