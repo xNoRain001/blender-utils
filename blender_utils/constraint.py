@@ -105,7 +105,7 @@ def add_limit_rotation_constraints (
     constraint.use_legacy_behavior = use_legacy_behavior
 
 def add_copy_transforms_constraints (
-  bone, 
+  bone_name, 
   subtarget, 
   target_space = 'WORLD', 
   owner_space = 'WORLD', 
@@ -113,7 +113,7 @@ def add_copy_transforms_constraints (
   target = None
 ):
   # set_mode('POSE')
-  pose_bone = get_pose_bone(bone)
+  pose_bone = get_pose_bone(bone_name)
 
   if pose_bone:
     constraint = pose_bone.constraints.new('COPY_TRANSFORMS')
@@ -203,10 +203,10 @@ def add_limit_location_constraint (
     constraint.max_z = max_z
     constraint.influence = influence
 
-def def_add_copy_transforms ():
+# 所有 def 骨骼添加复制变换约束
+def def_add_copy_transforms (armature):
   set_mode('POSE')
   pose_bones = get_pose_bones()
-  active_object = get_active_object()
   
   for pose_bone in pose_bones:
     name = pose_bone.name
@@ -215,6 +215,10 @@ def def_add_copy_transforms ():
       org_name = name.replace('def_', 'org_')
       constraints = pose_bone.constraints
 
+      # org_constraints = get_pose_bone(org_name).constraints
+      # while len(org_constraints):
+      #   org_constraints.remove(org_constraints[0])
+
       # 清空骨骼的所有约束
       while len(constraints):
         constraints.remove(constraints[0])
@@ -222,4 +226,4 @@ def def_add_copy_transforms ():
       # 如果里面才进入 POSE，每一次循环都会切换模式，性能非常差，推测相同模式之间切换
       # 也会造成性能影响
       # tip: transforms 约束不进入 POSE 也能添加
-      add_copy_transforms_constraints(name, org_name, target = active_object)
+      add_copy_transforms_constraints(name, org_name, target = armature)

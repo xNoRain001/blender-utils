@@ -143,17 +143,23 @@ def symmetrize_bones (bone_names):
   get_armature().symmetrize()
   deselect()
 
-def get_pose_bones ():
-  return get_active_object().pose.bones
+def get_pose_bones (armature = None):
+  if armature:
+    return armature.pose.bones
+  else:
+    return get_active_object().pose.bones
 
-def get_pose_bone (name):
-  return get_active_object().pose.bones.get(name)
+def get_pose_bone (name, armature = None):
+  return get_pose_bones(armature).get(name)
 
-def get_edit_bones ():
-  return get_active_object().data.edit_bones
+def get_edit_bones (armature = None):
+  if armature:
+    return armature.data.edit_bones
+  else:
+    return get_active_object().data.edit_bones
 
-def get_edit_bone (name):
-  return get_active_object().data.edit_bones.get(name)
+def get_edit_bone (name, armature = None):
+  return get_edit_bones(armature).get(name)
 
 def get_last_bone (bone):
   last_bone = bone
