@@ -25,6 +25,9 @@ def get_material (material_name):
 def create_material (material_name):
   return bpy.data.materials.new(material_name)
 
+def get_mode ():
+  return bpy.context.mode
+
 def set_mode (mode):
   bpy.ops.object.mode_set(mode = mode)
 

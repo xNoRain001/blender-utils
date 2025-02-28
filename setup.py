@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
   name = "blender-utils",
-  version = "0.0.9",
+  version = "0.0.10",
   packages = find_packages(),
   author = "Zhang Meixue",
   author_email = "3385842328@qq.com",

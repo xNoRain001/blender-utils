@@ -170,17 +170,24 @@ def get_last_bone (bone):
   return last_bone
 
 def get_selected_bone ():
-  return get_context().selected_bones[0]  
+  selected_bones = get_selected_bones()
+  
+  return selected_bones[0] if len(selected_bones) else None
 
 def get_selected_bones ():
   return get_context().selected_bones
+
+def get_selected_pose_bone ():
+  selected_pose_bones = get_selected_pose_bones()
+  
+  return selected_pose_bones[0] if len(selected_pose_bones) else None
 
 def get_selected_pose_bones ():
   return get_context().selected_pose_bones
 
 def get_bone_chain (bone):
   last_bone = bone
-  list = []
+  list = [last_bone]
 
   while len(last_bone.children):
     last_bone = last_bone.children[0]

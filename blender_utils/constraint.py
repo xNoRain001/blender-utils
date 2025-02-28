@@ -4,14 +4,14 @@ from .other import set_mode
 from .bone import get_pose_bone, get_pose_bones
 from .get_b_vars import get_context, get_armature, get_active_object 
 
-def add_stretch_to_constraint (bone, target_bone, head_tail = 0):
+def add_stretch_to_constraint (bone, subtarget, head_tail = 0, target = None):
   set_mode('POSE')
   pose_bone = get_pose_bone(bone)
   
   if pose_bone:
     constraint = pose_bone.constraints.new('STRETCH_TO')
-    constraint.target = get_active_object()
-    constraint.subtarget = target_bone
+    constraint.target = target or get_active_object()
+    constraint.subtarget = subtarget
     constraint.head_tail = head_tail
 
 # TODO: 移除 s
@@ -141,19 +141,22 @@ def add_copy_scale_constraints (
 
 def add_damped_track_constraints (
   bone, 
-  target, 
+  subtarget, 
   track_axis = 'TRACK_Y',
-  head_tail = 0
+  head_tail = 0,
+  target = None,
+  influence = 1
 ):
   set_mode('POSE')
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
     constraint = pose_bone.constraints.new('DAMPED_TRACK')
-    constraint.target = get_active_object()
-    constraint.subtarget = target
+    constraint.target = target or get_active_object()
+    constraint.subtarget = subtarget
     constraint.track_axis = track_axis
     constraint.head_tail = head_tail
+    constraint.influence = influence
 
 def add_armature_constraints (bone, targets):
   set_mode('POSE')
@@ -202,28 +205,3 @@ def add_limit_location_constraint (
     constraint.max_y = max_y
     constraint.max_z = max_z
     constraint.influence = influence
-
-# 所有 def 骨骼添加复制变换约束
-def def_add_copy_transforms (armature):
-  set_mode('POSE')
-  pose_bones = get_pose_bones()
-  
-  for pose_bone in pose_bones:
-    name = pose_bone.name
-
-    if name.startswith('def_'):
-      org_name = name.replace('def_', 'org_')
-      constraints = pose_bone.constraints
-
-      # org_constraints = get_pose_bone(org_name).constraints
-      # while len(org_constraints):
-      #   org_constraints.remove(org_constraints[0])
-
-      # 清空骨骼的所有约束
-      while len(constraints):
-        constraints.remove(constraints[0])
-
-      # 如果里面才进入 POSE，每一次循环都会切换模式，性能非常差，推测相同模式之间切换
-      # 也会造成性能影响
-      # tip: transforms 约束不进入 POSE 也能添加
-      add_copy_transforms_constraints(name, org_name, target = armature)
