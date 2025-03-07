@@ -62,7 +62,10 @@ def add_scene_custom_prop (
   size = None,
   subtype = None,
   set = None,
-  precision = None
+  precision = None,
+  poll = None,
+  translation_context = None,
+  use_search = None
 ):
   kwargs = {}
   
@@ -92,8 +95,13 @@ def add_scene_custom_prop (
     kwargs['set'] = set
   if precision is not None:
     kwargs['precision'] = precision
+  if poll is not None:
+    kwargs['poll'] = poll
+  if translation_context is not None:
+    kwargs['translation_context'] = translation_context
+  if use_search is not None:
+    kwargs['use_search'] = use_search
 
-  print(kwargs)
   fn = getattr(get_props(), f'{ prop_type }Property')
   scene = get_scene()
   setattr(scene, name, fn(**kwargs))

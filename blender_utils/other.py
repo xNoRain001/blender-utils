@@ -9,7 +9,7 @@ def get_current_frame ():
   return bpy.context.scene.frame_current
 
 def get_materials ():
-  return get_context().object.data.materials
+  return bpy.data.materials
 
 def update_view ():
   bpy.context.view_layer.update()

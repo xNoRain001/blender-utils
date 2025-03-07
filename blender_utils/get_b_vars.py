@@ -1,5 +1,10 @@
 import bpy
 
+def get_types (prop = None):
+  types = bpy.types
+
+  return getattr(types, prop) if prop else types
+
 def get_types_object ():
   return bpy.types.Object
 
