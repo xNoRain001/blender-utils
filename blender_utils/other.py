@@ -1,12 +1,34 @@
 import bpy
 
-from .get_b_vars import get_context, get_active_object, get_object
+from .get_b_vars import get_context, get_active_object, get_object, get_ops
+
+def set_constant_interpolation (pose_bone):
+  fcurves = get_active_object().animation_data.action.fcurves
+
+  for fcurve in fcurves:
+    if fcurve.data_path.startswith(f'pose.bones["{ pose_bone.name }"]'):
+      for keyframe in fcurve.keyframe_points:
+        keyframe.interpolation = 'CONSTANT'
+
+      break
+
+def insert_whole_character ():
+  get_ops().anim.keyframe_insert_by_name(type="WholeCharacter")
+
+def use_keyframe_insert_auto ():
+  return get_context().scene.tool_settings.use_keyframe_insert_auto
+
+def add_timer (cb, first_interval = 0, persistent = False):
+  bpy.app.timers.register(cb, first_interval = first_interval, persistent = persistent)
 
 def set_current_frame (frame):
   return bpy.context.scene.frame_set(frame)
 
 def get_current_frame ():
   return bpy.context.scene.frame_current
+
+def set_current_frame (frame):
+  bpy.context.scene.frame_current = frame
 
 def get_materials ():
   return bpy.data.materials
@@ -24,6 +46,9 @@ def get_material (material_name):
 
 def create_material (material_name):
   return bpy.data.materials.new(material_name)
+
+def is_pose_mode ():
+  return get_mode() == 'POSE'
 
 def get_mode ():
   return bpy.context.mode

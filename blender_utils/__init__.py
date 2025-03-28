@@ -4,7 +4,7 @@ from .node import *
 from .other import *
 from .get_b_vars import *
 from .collection import *
-from .constraint import *
+from .constraints import *
 
 def register ():
   pass

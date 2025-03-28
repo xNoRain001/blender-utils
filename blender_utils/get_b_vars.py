@@ -63,8 +63,13 @@ def get_operator ():
 def get_panel ():
   return bpy.types.Panel
 
-def get_props ():
-  return bpy.props
+def get_props (prop = None):
+  props = bpy.props
+  
+  if prop:
+    return getattr(props, prop)
+  
+  return props
 
 def get_scene ():
   return bpy.types.Scene 

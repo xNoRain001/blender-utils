@@ -5,7 +5,6 @@ from .bone import get_pose_bone, get_pose_bones
 from .get_b_vars import get_context, get_armature, get_active_object 
 
 def add_stretch_to_constraint (bone, subtarget, head_tail = 0, target = None):
-  set_mode('POSE')
   pose_bone = get_pose_bone(bone)
   
   if pose_bone:
@@ -14,9 +13,7 @@ def add_stretch_to_constraint (bone, subtarget, head_tail = 0, target = None):
     constraint.subtarget = subtarget
     constraint.head_tail = head_tail
 
-# TODO: 移除 s
-def add_ik_constraints (bone, target, chain_count, pole_subtarget = ''):
-  set_mode('POSE')
+def add_ik_constraint (bone, target, chain_count, pole_subtarget = ''):
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
@@ -27,7 +24,7 @@ def add_ik_constraints (bone, target, chain_count, pole_subtarget = ''):
     constraint.pole_target = get_active_object()
     constraint.pole_subtarget = pole_subtarget
 
-def add_copy_rotation_constraints (
+def add_copy_rotation_constraint (
   bone, 
   target, 
   use_x = True,
@@ -40,7 +37,6 @@ def add_copy_rotation_constraints (
   owner_space = 'WORLD',
   influence = 1
 ):
-  set_mode('POSE')
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
@@ -57,13 +53,12 @@ def add_copy_rotation_constraints (
     constraint.invert_z = invert_z
     constraint.influence = influence
 
-def add_copy_location_constraints (
+def add_copy_location_constraint (
   bone, 
   target, 
   target_space = 'WORLD',
   owner_space = 'WORLD'
 ):
-  set_mode('POSE')
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
@@ -73,7 +68,7 @@ def add_copy_location_constraints (
     constraint.target_space = target_space
     constraint.owner_space = owner_space
 
-def add_limit_rotation_constraints (
+def add_limit_rotation_constraint (
   bone, 
   owner_space = 'WORLD',
   use_legacy_behavior = False,
@@ -87,7 +82,6 @@ def add_limit_rotation_constraints (
   min_z = 0, 
   max_z = 0
 ):
-  set_mode('POSE')
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
@@ -104,7 +98,7 @@ def add_limit_rotation_constraints (
     constraint.max_z = radians(max_z)
     constraint.use_legacy_behavior = use_legacy_behavior
 
-def add_copy_transforms_constraints (
+def add_copy_transforms_constraint (
   bone_name, 
   subtarget, 
   target_space = 'WORLD', 
@@ -112,7 +106,6 @@ def add_copy_transforms_constraints (
   influence = 1,
   target = None
 ):
-  # set_mode('POSE')
   pose_bone = get_pose_bone(bone_name)
 
   if pose_bone:
@@ -123,13 +116,12 @@ def add_copy_transforms_constraints (
     constraint.owner_space = owner_space
     constraint.influence = influence
      
-def add_copy_scale_constraints (
+def add_copy_scale_constraint (
   bone, 
   target, 
   target_space = 'WORLD', 
   owner_space = 'WORLD'
 ):
-  set_mode('POSE')
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
@@ -139,7 +131,7 @@ def add_copy_scale_constraints (
     constraint.target_space = target_space
     constraint.owner_space = owner_space
 
-def add_damped_track_constraints (
+def add_damped_track_constraint (
   bone, 
   subtarget, 
   track_axis = 'TRACK_Y',
@@ -147,7 +139,6 @@ def add_damped_track_constraints (
   target = None,
   influence = 1
 ):
-  set_mode('POSE')
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
@@ -158,8 +149,7 @@ def add_damped_track_constraints (
     constraint.head_tail = head_tail
     constraint.influence = influence
 
-def add_armature_constraints (bone, targets):
-  set_mode('POSE')
+def add_armature_constraint (bone, targets):
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
@@ -186,7 +176,6 @@ def add_limit_location_constraint (
   max_z = 0,
   influence = 1
 ):
-  set_mode('POSE')
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:

@@ -65,7 +65,8 @@ def add_scene_custom_prop (
   precision = None,
   poll = None,
   translation_context = None,
-  use_search = None
+  use_search = None,
+  get = None
 ):
   kwargs = {}
   
@@ -101,6 +102,8 @@ def add_scene_custom_prop (
     kwargs['translation_context'] = translation_context
   if use_search is not None:
     kwargs['use_search'] = use_search
+  if get is not None:
+    kwargs['get'] = get
 
   fn = getattr(get_props(), f'{ prop_type }Property')
   scene = get_scene()
