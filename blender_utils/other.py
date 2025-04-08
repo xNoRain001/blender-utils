@@ -36,6 +36,15 @@ def get_materials ():
 def update_view ():
   bpy.context.view_layer.update()
 
+def get_key_block (name, block_name):
+  return bpy.data.shape_keys.get(name).key_blocks.get(block_name)
+
+def get_key_blocks (name):
+  return bpy.data.shape_keys.get(name).key_blocks
+
+def get_shape_key (name):
+  return bpy.data.shape_keys.get(name)
+
 def get_shape_keys (name):
   shape_keys = bpy.data.shape_keys.get(name)
 
@@ -46,6 +55,9 @@ def get_material (material_name):
 
 def create_material (material_name):
   return bpy.data.materials.new(material_name)
+
+def is_edit_mode ():
+  return get_mode() == 'EDIT'
 
 def is_pose_mode ():
   return get_mode() == 'POSE'

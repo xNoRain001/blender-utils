@@ -1,10 +1,14 @@
 from math import radians
 
-from .other import set_mode
-from .bone import get_pose_bone, get_pose_bones
-from .get_b_vars import get_context, get_armature, get_active_object 
+from .bone import get_pose_bone
+from .get_b_vars import get_active_object 
 
-def add_stretch_to_constraint (bone, subtarget, head_tail = 0, target = None):
+def add_stretch_to_constraint (
+  bone, 
+  subtarget, 
+  head_tail = 0, 
+  target = None
+):
   pose_bone = get_pose_bone(bone)
   
   if pose_bone:
@@ -13,20 +17,26 @@ def add_stretch_to_constraint (bone, subtarget, head_tail = 0, target = None):
     constraint.subtarget = subtarget
     constraint.head_tail = head_tail
 
-def add_ik_constraint (bone, target, chain_count, pole_subtarget = ''):
+def add_ik_constraint (
+  bone, 
+  subtarget, 
+  chain_count, 
+  pole_subtarget = '', 
+  target = None
+):
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
     constraint = pose_bone.constraints.new('IK')
-    constraint.target = get_active_object()
-    constraint.subtarget = target
+    constraint.target = target or get_active_object()
+    constraint.subtarget = subtarget
     constraint.chain_count = chain_count
     constraint.pole_target = get_active_object()
     constraint.pole_subtarget = pole_subtarget
 
 def add_copy_rotation_constraint (
   bone, 
-  target, 
+  subtarget, 
   use_x = True,
   use_y = True, 
   use_z = True,
@@ -35,14 +45,15 @@ def add_copy_rotation_constraint (
   invert_z = False,
   target_space = 'WORLD',
   owner_space = 'WORLD',
-  influence = 1
+  influence = 1,
+  target = None
 ):
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
     constraint = pose_bone.constraints.new('COPY_ROTATION')
-    constraint.target = get_active_object()
-    constraint.subtarget = target
+    constraint.target = target or get_active_object()
+    constraint.subtarget = subtarget
     constraint.target_space = target_space
     constraint.owner_space = owner_space
     constraint.use_x = use_x
@@ -55,16 +66,17 @@ def add_copy_rotation_constraint (
 
 def add_copy_location_constraint (
   bone, 
-  target, 
+  subtarget, 
   target_space = 'WORLD',
-  owner_space = 'WORLD'
+  owner_space = 'WORLD',
+  target = None
 ):
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
     constraint = pose_bone.constraints.new('COPY_LOCATION')
-    constraint.target = get_active_object()
-    constraint.subtarget = target
+    constraint.target = target or get_active_object()
+    constraint.subtarget = subtarget
     constraint.target_space = target_space
     constraint.owner_space = owner_space
 
@@ -118,16 +130,17 @@ def add_copy_transforms_constraint (
      
 def add_copy_scale_constraint (
   bone, 
-  target, 
+  subtarget, 
   target_space = 'WORLD', 
-  owner_space = 'WORLD'
+  owner_space = 'WORLD',
+  target = None
 ):
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
     constraint = pose_bone.constraints.new('COPY_SCALE')
-    constraint.target = get_active_object()
-    constraint.subtarget = target
+    constraint.target = target or get_active_object()
+    constraint.subtarget = subtarget
     constraint.target_space = target_space
     constraint.owner_space = owner_space
 
@@ -136,8 +149,8 @@ def add_damped_track_constraint (
   subtarget, 
   track_axis = 'TRACK_Y',
   head_tail = 0,
-  target = None,
-  influence = 1
+  influence = 1,
+  target = None
 ):
   pose_bone = get_pose_bone(bone)
 
@@ -149,15 +162,17 @@ def add_damped_track_constraint (
     constraint.head_tail = head_tail
     constraint.influence = influence
 
-def add_armature_constraint (bone, targets):
+def add_armature_constraint (bone, subtarget, target = None):
   pose_bone = get_pose_bone(bone)
 
   if pose_bone:
     constraint = pose_bone.constraints.new('ARMATURE')
-    for value in targets:
-      target = constraint.targets.new()
-      target.target = get_active_object()
-      target.subtarget = value
+    target = target or get_active_object()
+
+    for _subtarget in subtarget:
+      _target = constraint.targets.new()
+      _target.target = target
+      _target.subtarget = _subtarget
 
 def add_limit_location_constraint (
   bone, 
