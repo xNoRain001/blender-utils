@@ -2,6 +2,12 @@ import bpy
 
 from .get_b_vars import get_context, get_active_object, get_object, get_ops
 
+def childof_set_inverse (constraint, owner = 'OBJECT'):
+  get_ops().constraint.childof_set_inverse(
+    constraint = constraint.name, 
+    owner = owner
+  )
+
 def set_constant_interpolation (pose_bone):
   fcurves = get_active_object().animation_data.action.fcurves
 
